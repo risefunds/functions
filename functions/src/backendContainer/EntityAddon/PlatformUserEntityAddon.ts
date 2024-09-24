@@ -30,7 +30,7 @@ export class PlatformUserEntityAddon
   // this is signup
   async signupPlatformUser(
     data: IGetPlatformUserPayload,
-    type: models.IPlatformUserType[] = ['client'],
+    type: models.IPlatformUserType[] = ['creative']
   ): Promise<{
     firebaseUser: admin.auth.UserRecord;
     platformUser: models.PlatformUserEntityModel;
@@ -48,7 +48,7 @@ export class PlatformUserEntityAddon
       firebaseUser = await admin.auth().createUser(data);
       const platformUserModel = new models.PlatformUserEntityModel(
         firebaseUser.uid,
-        firebaseUser.displayName,
+        firebaseUser.displayName
       );
       platformUserModel.details = { ...platformUser?.details, type };
       platformUser = await this.entityService.persist(platformUserModel);
@@ -86,7 +86,7 @@ export class PlatformUserEntityAddon
 
   async prv(
     feature: string,
-    data: Record<string, unknown>,
+    data: Record<string, unknown>
   ): Promise<Record<string, unknown>> {
     console.log(feature, data);
     return { message: 'Undefined' };
@@ -94,7 +94,7 @@ export class PlatformUserEntityAddon
 
   async pub(
     feature: string,
-    data: Record<string, unknown>,
+    data: Record<string, unknown>
   ): Promise<Record<string, unknown>> {
     if (feature === 'getPlatformUser') {
       const payload = data as {
@@ -103,7 +103,7 @@ export class PlatformUserEntityAddon
       };
       const { firebaseUser } = await this.signupPlatformUser(
         payload.user as never as IGetPlatformUserPayload,
-        payload.type,
+        payload.type
       );
       const customToken = await admin
         .auth()
@@ -117,7 +117,7 @@ export class PlatformUserEntityAddon
 
   async webhook(
     feature: string,
-    data: Record<string, unknown>,
+    data: Record<string, unknown>
   ): Promise<Record<string, unknown>> {
     console.log(feature, data);
     return { message: 'Undefined' };
