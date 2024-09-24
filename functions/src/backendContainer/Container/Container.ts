@@ -1,20 +1,20 @@
-import { externalAddonContainer, ExternalAddonService } from '../ExternalAddon'
-import { entityAddonContainer, EntityAddonService } from '../EntityAddon'
+import { externalAddonContainer, ExternalAddonService } from '../ExternalAddon';
+import { entityAddonContainer, EntityAddonService } from '../EntityAddon';
 
-import { BaseService, baseServiceContainer } from '../Base'
-import { IBaseAddon } from '../IBaseAddon'
-import { IBaseEntityAddonExtension } from '../EntityAddon/BaseEntityAddon'
-import { models } from '@risefunds/sdk'
+import { BaseService, baseServiceContainer } from '../Base';
+import { IBaseAddon } from '../IBaseAddon';
+import { IBaseEntityAddonExtension } from '../EntityAddon/BaseEntityAddon';
+import { models } from '@risefunds/sdk';
 
 export class Container {
-  BaseService: BaseService
-  ExternalAddonService: ExternalAddonService
-  EntityAddonService: EntityAddonService
+  BaseService: BaseService;
+  ExternalAddonService: ExternalAddonService;
+  EntityAddonService: EntityAddonService;
 
-  initialized = false
+  initialized = false;
 
   get externalAddons(): IBaseAddon[] {
-    return externalAddonContainer.getAll<IBaseAddon>('externalAddon')
+    return externalAddonContainer.getAll<IBaseAddon>('externalAddon');
   }
 
   get entityAddons(): IBaseEntityAddonExtension<
@@ -26,23 +26,25 @@ export class Container {
         unknown & models.IEntityModelExtension,
         unknown & models.IBaseEntityModel
       >
-    >('entityAddon')
+    >('entityAddon');
   }
 
   constructor() {
-    this.initialized = false
-    this.BaseService = baseServiceContainer.resolve<BaseService>(BaseService)
+    this.initialized = false;
+    this.BaseService = baseServiceContainer.resolve<BaseService>(BaseService);
     this.ExternalAddonService =
-      externalAddonContainer.resolve<ExternalAddonService>(ExternalAddonService)
+      externalAddonContainer.resolve<ExternalAddonService>(
+        ExternalAddonService,
+      );
     this.EntityAddonService =
-      entityAddonContainer.resolve<EntityAddonService>(EntityAddonService)
+      entityAddonContainer.resolve<EntityAddonService>(EntityAddonService);
   }
 
   async init(): Promise<void> {
-    await this.BaseService.init()
-    await this.ExternalAddonService.init()
-    await this.EntityAddonService.init()
+    await this.BaseService.init();
+    await this.ExternalAddonService.init();
+    await this.EntityAddonService.init();
 
-    this.initialized = true
+    this.initialized = true;
   }
 }

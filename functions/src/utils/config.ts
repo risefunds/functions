@@ -1,19 +1,19 @@
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions';
 
 export const env = functions.config().env as {
   environment: {
-    type: string
-  }
+    type: string;
+  };
   frontend: {
-    url: string
-  }
+    url: string;
+  };
   api: {
-    url: string
-  }
+    url: string;
+  };
   cors: {
-    whitelist: string
-  }
+    whitelist: string;
+  };
   calendly: {
-    token: string
-  }
-}
+    token: string;
+  };
+};

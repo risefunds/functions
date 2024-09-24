@@ -8,13 +8,13 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # Updated to v3
+      - uses: actions/checkout@v3
 
       # Create .npmrc file to authenticate with GitHub Packages
       - name: Setup .npmrc file for GitHub Packages
         run: |
           echo "@risefunds:registry=https://npm.pkg.github.com" > ~/.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.RISEFUNDS_BENEDICT_PAT }}" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_PACKAGES_TOKEN }}" >> ~/.npmrc
 
       # Install npm packages
       - name: Install npm packages
@@ -22,7 +22,13 @@ jobs:
           cd functions
           npm install
 
-      # Deploy to Firebase
+      # Run ESLint with the --fix flag to automatically fix issues
+      - name: Run ESLint to fix issues
+        run: |
+          cd functions
+          npm run lint -- --fix
+
+      # Deploy to Firebase after fixing lint errors
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:

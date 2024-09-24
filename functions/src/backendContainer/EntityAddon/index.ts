@@ -14,7 +14,7 @@ entityAddonContainer
 entityAddonContainer
   .bind('ExternalAddonService')
   .toConstantValue(
-    externalAddonContainer.resolve<ExternalAddonService>(ExternalAddonService)
+    externalAddonContainer.resolve<ExternalAddonService>(ExternalAddonService),
   );
 
 entityAddonContainer

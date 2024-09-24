@@ -1,6 +1,6 @@
-import { Router } from 'express'
-import { AddonRouter } from './AddonRouter'
+import { Router } from 'express';
+import { AddonRouter } from './AddonRouter';
 
-export const pubRouter = Router()
+export const pubRouter = Router();
 
-pubRouter.use('/addon', AddonRouter)
+pubRouter.use('/addon', AddonRouter);
