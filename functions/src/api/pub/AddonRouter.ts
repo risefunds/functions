@@ -9,32 +9,32 @@ AddonRouter.post(
     console.log(req.container.externalAddons);
 
     const externalAddons = req.container.externalAddons.find(
-      (addon: any) => addon.addonName === req.params.addonName,
+      (addon) => addon.addonName === req.params.addonName
     );
     if (!externalAddons) throw new Error('Addon service not found');
 
     const response = await externalAddons.pub(
       req.params.addonFeature,
-      req.body as never,
+      req.body as never
     );
 
     req.response.json(response);
-  }),
+  })
 );
 
 AddonRouter.post(
   '/entity/:addonName/:addonFeature',
   requestWithError(async (req) => {
     const entityAddons = req.container.entityAddons.find(
-      (addon: any) => addon.addonName === req.params.addonName,
+      (addon) => addon.addonName === req.params.addonName
     );
 
     if (!entityAddons) throw new Error('Addon service not found');
     const response = await entityAddons.pub(
       req.params.addonFeature,
-      req.body as never,
+      req.body as never
     );
 
     req.response.json(response);
-  }),
+  })
 );

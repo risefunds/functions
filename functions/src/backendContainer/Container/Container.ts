@@ -34,7 +34,7 @@ export class Container {
     this.BaseService = baseServiceContainer.resolve<BaseService>(BaseService);
     this.ExternalAddonService =
       externalAddonContainer.resolve<ExternalAddonService>(
-        ExternalAddonService,
+        ExternalAddonService
       );
     this.EntityAddonService =
       entityAddonContainer.resolve<EntityAddonService>(EntityAddonService);
