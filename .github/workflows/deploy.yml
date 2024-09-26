@@ -10,23 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Set up Node.js version 18.x (or higher)
+      # Set up Node.js version 18.x
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: "18.x" # Specify Node.js version >= 18
 
       # Checkout the repository
       - uses: actions/checkout@v3
+
+      # Authenticate with GitHub Packages by setting up the .npmrc file
+      - name: Setup .npmrc file for GitHub Packages
+        run: |
+          echo "@risefunds:registry=https://npm.pkg.github.com" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.RISEFUNDS_BENEDICT_PAT }}" >> ~/.npmrc
 
       # Install npm packages inside the functions directory
       - name: Install npm packages
         working-directory: functions
         run: npm install
 
-      # Install Firebase CLI
+      # Install Firebase CLI globally
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
+
+      # Run ESLint with the --fix flag to automatically fix issues
+      - name: Run ESLint to fix issues
+        working-directory: functions
+        run: npm run lint -- --fix
 
       # Set up Service Account for authentication
       - name: Setup Google Application Credentials
@@ -37,6 +48,8 @@ jobs:
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
-        run: firebase deploy --only functions
+        run: firebase use --add risefunds && firebase deploy --only functions
         env:
           FB_SERVICE_JSON: ${HOME}/gcloud-service-key.json
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FB_SERVICE_JSON }}
