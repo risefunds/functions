@@ -1,10 +1,12 @@
 import admin from 'firebase-admin';
 import * as dotenv from 'dotenv';
 
+// test
+
 dotenv.config();
 
 const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT as string,
+  process.env.FIREBASE_SERVICE_ACCOUNT as string
 );
 
 // import serviceAccount from './utils/serviceAccountKey.json';
