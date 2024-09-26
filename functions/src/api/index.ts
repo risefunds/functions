@@ -8,7 +8,7 @@ import { prvRouter } from './prv';
 
 const rest = express();
 
-rest.use((req, _res, next) => {
+rest.use((req: any, _res: any, next: any) => {
   console.info(`REQUEST: ${req.method} ${req.originalUrl}`);
   if (Object.keys(req.body).length !== 0) {
     console.info(`BODY: ${JSON.stringify(req.body, null, 2)}`);
@@ -30,7 +30,7 @@ rest.use(
     },
     optionsSuccessStatus: 200,
     // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }),
+  })
 );
 
 rest.use((req, res, next) => {
