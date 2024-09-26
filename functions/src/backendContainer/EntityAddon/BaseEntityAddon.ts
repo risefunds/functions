@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 import { models, IEntityExtensionService, ISDKServices } from '@risefunds/sdk';
 import { inject, injectable } from 'inversify';
 import { BaseService } from '../Base';
