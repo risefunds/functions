@@ -15,5 +15,3 @@ admin.initializeApp({
 });
 
 export * from './api';
-// export * from './events'
-// export * from './cron'
