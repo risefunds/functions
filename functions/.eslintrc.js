@@ -31,6 +31,9 @@ module.exports = {
       },
     ],
     curly: 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+
     'new-cap': 'off',
     'require-jsdoc': 0,
     quotes: ['error', 'single'],
