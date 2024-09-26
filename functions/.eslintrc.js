@@ -36,10 +36,11 @@ module.exports = {
     quotes: ['error', 'single'],
     camelcase: 'off',
     '@typescript-eslint/camelcase': 'off',
-    semi: ['error', 'never'],
+    semi: ['error', 'always'],
     'quote-props': ['error', 'as-needed'],
     'object-curly-spacing': ['error', 'always'],
     indent: 'off',
     'operator-linebreak': 'off',
+    'brace-style': 'off',
   },
 };

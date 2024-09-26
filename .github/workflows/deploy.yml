@@ -2,37 +2,37 @@ name: Firebase function deploy
 
 on:
   push:
-    branches: [prod]
+    branches:
+      - prod
 
 jobs:
-  version:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v3
 
-      # Create .npmrc file to authenticate with GitHub Packages
+      # Authenticate with GitHub Packages by setting up the .npmrc file
       - name: Setup .npmrc file for GitHub Packages
         run: |
           echo "@risefunds:registry=https://npm.pkg.github.com" > ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.RISEFUNDS_BENEDICT_PAT }}" >> ~/.npmrc
 
-      # Install npm packages
+      # Install npm packages inside the functions directory
       - name: Install npm packages
-        run: |
-          cd functions
-          npm install
+        working-directory: functions
+        run: npm install
 
       # Run ESLint with the --fix flag to automatically fix issues
       - name: Run ESLint to fix issues
-        run: |
-          cd functions
-          npm run lint -- --fix
+        working-directory: functions
+        run: npm run lint -- --fix
 
-      # Deploy to Firebase after fixing lint errors
-      - name: Deploy to firebase
-        uses: w9jds/firebase-action@master
+      # Deploy Firebase functions using the Firebase CLI
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v1.5.0 # Use a tagged version instead of master
         with:
           args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}

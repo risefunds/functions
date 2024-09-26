@@ -1,18 +1,16 @@
 import admin from 'firebase-admin';
-import * as dotenv from 'dotenv';
+// import serviceAccount from './utils/serviceAccountKey.json';
 
-// test
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT as string
-);
+const serviceAccount = JSON.parse(process.env.FB_SERVICE_JSON as string);
 
 // import serviceAccount from './utils/serviceAccountKey.json';
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount as never),
   databaseURL: 'https://risefunds-default-rtdb.firebaseio.com/',
 });
 
