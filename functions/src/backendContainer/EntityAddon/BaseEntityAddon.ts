@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { models, IEntityExtensionService, ISDKServices } from '@risefunds/sdk';
 import { inject, injectable } from 'inversify';
@@ -11,7 +11,6 @@ export interface IBaseEntityAddon {
   SdkServices: ISDKServices;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IBaseEntityAddonExtension<
   ClassObject extends models.IEntityModelExtension,
   JSONModel extends models.IBaseEntityModel

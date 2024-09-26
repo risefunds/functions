@@ -1,7 +1,7 @@
-import { ParamsDictionary } from 'express-serve-static-core';
+import { Request } from 'express';
 
-declare module 'express-serve-static-core' {
-  interface Request<P = ParamsDictionary> {
-    params: P;
+declare module 'express' {
+  interface Request {
+    params: Record<string, string>;
   }
 }
