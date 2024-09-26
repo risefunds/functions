@@ -51,5 +51,3 @@ jobs:
         run: firebase use --add risefunds && firebase deploy --only functions
         env:
           FB_SERVICE_JSON: ${HOME}/gcloud-service-key.json
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FB_SERVICE_JSON }}
