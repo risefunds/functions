@@ -42,16 +42,16 @@ jobs:
       # Set up Service Account for authentication
       - name: Setup Google Application Credentials
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${HOME}/gcloud-service-key.json
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${{ runner.temp }}/gcloud-service-key.json
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/gcloud-service-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
       # Debug: Check if service account file is saved correctly
       - name: Check Service Account File
-        run: ls -la ${HOME}/gcloud-service-key.json
+        run: ls -la ${{ runner.temp }}/gcloud-service-key.json
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
         run: firebase deploy --only functions --project risefunds --debug
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/gcloud-service-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/gcloud-service-key.json
