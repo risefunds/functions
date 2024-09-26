@@ -10,6 +10,8 @@ export interface IBaseEntityAddon {
   BaseService: BaseService;
   SdkServices: ISDKServices;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IBaseEntityAddonExtension<
   ClassObject extends models.IEntityModelExtension,
   JSONModel extends models.IBaseEntityModel
