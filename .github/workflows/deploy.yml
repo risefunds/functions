@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Set up Node.js version 18.x
+      # Set up Node.js version 18.x (or higher)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -44,10 +44,10 @@ jobs:
         run: |
           echo "${{ secrets.FB_SERVICE_JSON }}" > ${HOME}/gcloud-service-key.json
         env:
-          FB_SERVICE_JSON: ${{ secrets.FB_SERVICE_JSON }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FB_SERVICE_JSON }}
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
-        run: firebase use --add risefunds && firebase deploy --only functions
+        run: firebase deploy --only functions --project risefunds
         env:
-          FB_SERVICE_JSON: ${HOME}/gcloud-service-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/gcloud-service-key.json
