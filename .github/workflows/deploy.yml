@@ -50,7 +50,7 @@ jobs:
         run: cat ${HOME}/gcloud-service-key.json
 
       - name: Set Firebase project
-        run: firebase use --risefunds
+        run: firebase use --add risefunds
 
       # Debug: Check if service account file is saved correctly
       - name: Check Service Account File
