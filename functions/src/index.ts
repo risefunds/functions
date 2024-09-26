@@ -5,8 +5,15 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
+// const serviceAccount = JSON.parse(
+//   process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64 as string
+// );
+
 const serviceAccount = JSON.parse(
-  process.env.GOOGLE_APPLICATION_CREDENTIALS as string
+  Buffer.from(
+    process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64 as string,
+    'base64'
+  ).toString('utf8')
 );
 
 admin.initializeApp({

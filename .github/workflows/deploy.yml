@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Set up Node.js version 18.x (or higher)
+      # Set up Node.js version 18.x
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x" # Specify Node.js version >= 18
+          node-version: "18.x"
 
       # Checkout the repository
       - uses: actions/checkout@v3
@@ -34,21 +34,14 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      # Run ESLint with the --fix flag to automatically fix issues
-      - name: Run ESLint to fix issues
-        working-directory: functions
-        run: npm run lint -- --fix
-
-      # Set up Service Account for authentication
-      - name: Setup Google Application Credentials
+      # Decode the Base64-encoded service account key
+      - name: Decode Service Account Key
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${{ runner.temp }}/gcloud-service-key.json
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > ${{ runner.temp }}/gcloud-service-key.json
 
       # Debug: Check if service account file is saved correctly
       - name: Check Service Account File
-        run: ls -la ${{ runner.temp }}/gcloud-service-key.json
+        run: cat ${{ runner.temp }}/gcloud-service-key.json
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
