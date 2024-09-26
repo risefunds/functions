@@ -42,9 +42,12 @@ jobs:
       # Set up Service Account for authentication
       - name: Setup Google Application Credentials
         run: |
-          echo "${{ secrets.FB_SERVICE_JSON }}" > ${HOME}/gcloud-service-key.json
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > ${HOME}/gcloud-service-key.json
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FB_SERVICE_JSON }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Print Google Application Credentials
+        run: cat ${HOME}/gcloud-service-key.json
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
