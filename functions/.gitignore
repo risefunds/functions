@@ -12,4 +12,4 @@ node_modules/
 .npmrc
 backups
 seed
-src/utils/serviceAccountKey.json
+# src/utils/serviceAccountKey.json

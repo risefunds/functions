@@ -36,4 +36,4 @@ jobs:
 
       # Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
-        run: firebase deploy --only functions --project risefunds
+        run: firebase deploy --only functions --project risefunds --debug
