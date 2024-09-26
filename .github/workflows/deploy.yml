@@ -46,8 +46,11 @@ jobs:
       - name: Check Service Account File
         run: cat ${{ github.workspace }}/gcloud-service-key.json
 
+      - name: Print Google Application Credentials
+        run: cat ${{ github.workspace }}/gcloud-service-key.json
+
       # Step 8: Deploy Firebase functions using Firebase CLI
       - name: Deploy to Firebase
-        run: firebase deploy --only functions --project risefunds
+        run: firebase deploy --only functions --project risefunds --debug
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcloud-service-key.json
