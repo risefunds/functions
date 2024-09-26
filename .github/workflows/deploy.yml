@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Set up Node.js version 18.x (or higher)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x" # Specify Node.js version >= 18
+
       # Checkout the repository
       - uses: actions/checkout@v3
 
@@ -31,7 +37,7 @@ jobs:
 
       # Deploy Firebase functions using the Firebase CLI
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v1.5.0 # Use a tagged version instead of master
+        uses: w9jds/firebase-action@v1.5.0
         with:
           args: deploy --only functions
         env:
