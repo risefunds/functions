@@ -1,3 +1,5 @@
+# Workflow file: .github/workflows/deploy.yml
+
 name: Firebase function deploy
 
 on:
