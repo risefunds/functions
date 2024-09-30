@@ -1,0 +1,17 @@
+{
+  "google": {
+    "application_credentials": {
+      "client_email": "firebase-adminsdk-pi84b@risefunds.iam.gserviceaccount.com",
+      "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDPs0P7sp3FUjq0\nZi6hWs91Utao0FnqNWGigEWs0uPsGbbUj5FrGkHE86to7O9YV7i+mLebpseNUcFv\nebJCI1THrxV3tMG5CMxOGZoXixHjyOOnle10mHJ+s722Um40yTJxmMykur12ykr8\nGQuTB/qGOhsGm77GB6g0HoEQDsX6d/E12awf/CyjI5E/Az5XZUg+pYSlHL76kuxl\nZVI3cS56+2Ww2OwPlVUnxUTU8ch0FxDH3Xwd1jfpu4X4eI0V3Za8S3WisWYrYF3a\nrrtmzZnhwdimi5Swi7JX/EVfAHvkmTFp9pQYI6XzKeLDaerHqBQSqaOndtZFaxDa\nV1UN08mFAgMBAAECggEAK8W0PWKkmO4ORLAnQiatA6UYa73zQSaMY86kQHq2ga7e\npvf11exT8ZHH7WZHv+bG3tY5FdLlid0xxtBPNtyS1L2LqO19iUU3J3uCS9VpiQew\noMQ6ZcDuGlE/mWHQa4v+d03UTSA050jVWkFd/Nfo3qp2wSMIJtx8wLUwDoYKh9En\nn1GWmKblxgt2khQVU3XgkbxGX+kiwrf78eC8W2pTA0+Pi4va0LLlWxf0mgOXD2ip\n7Dncirw4r9683h1IYq+MUz8OAWRKiqBxxs8IsiKspD0ZF5J35CkmAA6dtgqjJcP6\niUUDBNwJBrIV7hwocV10TkXH7DOfveJopGzxkOoEmQKBgQDpkjofddEMA8vs5sBS\n8F0MwV7j420EI/6MTE1+nSFyDoqETvp0+UURyVCAaqSrWNsuzahvUBtEXn3NMcqg\nZZOFJ26wMM4WEK3zNEhWKSC9lEh/CkWQhi/xvnHrP/zrTZ02X8082D+ppMTeqQG4\nBPbePBwrPAoenNRGZzpwQ1TiuQKBgQDjpRCn6UjhzJ+bO+xalpDd5lNYc/XAbd8E\nZ1EDBFnk/nxUEeWv5oDcW0kXNh3/GlvOwjjHo4Hm+Iw1Tkv6Bm1UydLWJVZ3lKJL\nAZOuTqHqSML/RJojRiMNDEdijAeuQbsBY1BM8SAVJeX3RymjIgA1K9gckx3L8xQD\nLJ5FvGvnLQKBgQCvdRBCd8+steFnucO5yiQsI8qzaDGJjbx3Cg6g0UrBkljNoUKV\nwnb3MIJPpUzEBsDH/OfNjqCdEFpyXTf4m7VgrkmBA3icrLTvYFQCnWyh3RVEkaPG\nOHclo0mSTgQhgrFZmkfjsBLKziKxnMXUxa3pLcB/Xd/ANVFk/cCxenL2yQKBgGx7\nWc+atTedaqXwTXbx74E/ZJJvWDpmYXPYxFtatHgS6i6qBLnpb5kTC2a7TFooNn32\nQlaozZvC8BXrBPvWGj3gm8+fJXCA7UIvMzBKmpBqMjqxd369yrBKHK6SqopZGoPT\nzw2Ljs1lLQzE5cuuxUiRZ0Bev0FUykGk/pue6hDVAoGBAOVWUEa7JXetZtOcgvBV\n+KqzoiGqgU+xhwOEnmj7qlC8uNQi0AhdrUgeq7TS21+7d67dtLh4sUnnQFjK/xH/\n4d0+WTZ/qq/VjYsECuh/NScLbhgSITMQ5FhFqtTlGSK4kLQ6ccA2ilWRFiieFb+c\n1v4DdydLY7JKy22/Cpvvz20C\n-----END PRIVATE KEY-----\n",
+      "universe_domain": "googleapis.com",
+      "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-pi84b%40risefunds.iam.gserviceaccount.com",
+      "client_id": "102652587971442577256",
+      "type": "service_account",
+      "project_id": "risefunds",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "private_key_id": "13bd8913225574acbda829d556791e33b6cd1c21",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+    }
+  }
+}
