@@ -1,13 +1,22 @@
 import * as functions from 'firebase-functions';
 import admin from 'firebase-admin';
 
-// Retrieve the environment variable from Firebase config
-const serviceAccount = JSON.parse(
-  JSON.stringify(functions.config().google.application_credentials)
-);
+// Check if the environment is production or local
+if (process.env.NODE_ENV === 'production') {
+  // In production, use the Firebase Functions environment configuration
+  const serviceAccount = functions.config().google.application_credentials;
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
+    databaseURL: 'https://n3-db-webapp-dev-default-rtdb.firebaseio.com',
+  });
+} else {
+  // In local environment, use the local service account key
+  const serviceAccount = require('./utils/serviceAccountKey.json'); // Import the local service account key
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount as never),
+    databaseURL: 'https://n3-db-webapp-dev-default-rtdb.firebaseio.com',
+  });
+}
 
-// Initialize Firebase Admin SDK using the serviceAccount credentials
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-  databaseURL: 'https://risefunds-default-rtdb.firebaseio.com/',
-});
+// Export your modules (API, events, cron jobs, etc.)
+export * from './api';
