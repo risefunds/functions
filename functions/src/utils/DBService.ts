@@ -1,15 +1,17 @@
 import { IReferenceDB, IWhereParam } from '@risefunds/sdk';
 import { firestore, storage } from 'firebase-admin';
+import admin from 'firebase-admin';
+
 export class DBService implements IReferenceDB {
   isAdmin = true;
-  db = firestore();
+  db = admin.firestore();
   storage = storage();
 
   private getCollection<Model>(
-    collectionName: string,
+    collectionName: string
   ): FirebaseFirestore.CollectionReference<Model> {
     return this.db.collection(
-      collectionName,
+      collectionName
     ) as FirebaseFirestore.CollectionReference<Model>;
   }
 
@@ -21,11 +23,11 @@ export class DBService implements IReferenceDB {
     await batch.commit();
   }
 
-  transformDateTo(date: Date): firestore.Timestamp {
-    return firestore.Timestamp.fromDate(date);
+  transformDateTo(date: Date): admin.firestore.Timestamp {
+    return admin.firestore.Timestamp.fromDate(date);
   }
 
-  transformDateFrom(object: firestore.Timestamp): Date {
+  transformDateFrom(object: admin.firestore.Timestamp): Date {
     return object.toDate();
   }
 
@@ -45,13 +47,13 @@ export class DBService implements IReferenceDB {
   persistBatch<Model>(
     collectionName: string,
     data: Model,
-    batch: firestore.WriteBatch,
+    batch: firestore.WriteBatch
   ): void {
     if (!(data as unknown as { id: string }).id)
       throw new Error('ID is not defined');
 
     const document = this.getCollection<Model>(collectionName).doc(
-      (data as unknown as { id: string }).id,
+      (data as unknown as { id: string }).id
     );
     batch.set(document, {
       ...data,
@@ -63,7 +65,7 @@ export class DBService implements IReferenceDB {
       throw new Error('ID is not defined');
 
     const document = this.getCollection<Model>(collectionName).doc(
-      (data as unknown as { id: string }).id,
+      (data as unknown as { id: string }).id
     );
     await document.set({
       ...data,
@@ -79,7 +81,7 @@ export class DBService implements IReferenceDB {
 
   private getQueryWithParamsArray<Model>(
     collectionName: string,
-    queryParams: IWhereParam[] = [],
+    queryParams: IWhereParam[] = []
   ): firestore.Query<Model> {
     let query: FirebaseFirestore.Query<Model> =
       this.getCollection<Model>(collectionName);
@@ -106,11 +108,11 @@ export class DBService implements IReferenceDB {
 
   async where<Model>(
     collectionName: string,
-    queryParams: IWhereParam[],
+    queryParams: IWhereParam[]
   ): Promise<Model[]> {
     const query = this.getQueryWithParamsArray<Model>(
       collectionName,
-      queryParams,
+      queryParams
     );
     const qs = await query.get();
     return qs.docs.map((doc) => {

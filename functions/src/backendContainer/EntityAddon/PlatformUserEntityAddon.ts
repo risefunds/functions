@@ -9,6 +9,7 @@ interface IGetPlatformUserPayload {
   password?: string;
   inviteId?: string;
 }
+
 @injectable()
 export class PlatformUserEntityAddon
   extends BaseEntityAddon<
@@ -22,12 +23,13 @@ export class PlatformUserEntityAddon
     >
 {
   addonName = models.PlatformUserEntityModel.collection;
+
   get entityService(): PlatformUserEntityService {
     return this.BaseService.SDKService.getUnAuthenticatedSDKServices().core
       .PlatformUserEntityService;
   }
 
-  // this is signup
+  // Signup method
   async signupPlatformUser(
     data: IGetPlatformUserPayload,
     type: models.IPlatformUserType[] = ['creative']
@@ -38,49 +40,36 @@ export class PlatformUserEntityAddon
     let firebaseUser: admin.auth.UserRecord | undefined;
 
     try {
+      // Check if the Firebase user exists
       firebaseUser = await admin.auth().getUserByEmail(data.email);
     } catch (error) {
       console.log('No Firebase User.');
     }
+
     let platformUser: models.PlatformUserEntityModel | undefined;
 
     if (!firebaseUser) {
+      // Create a new Firebase user if not found
       firebaseUser = await admin.auth().createUser(data);
+
+      // Create a new Platform User entity
       const platformUserModel = new models.PlatformUserEntityModel(
         firebaseUser.uid,
         firebaseUser.displayName
       );
       platformUserModel.details = { ...platformUser?.details, type };
+
       platformUser = await this.entityService.persist(platformUserModel);
     } else {
-      throw new Error('Email already exist');
+      throw new Error('Email already exists');
     }
 
-    // if (platformUser && firebaseUser) {
-    //   const stripeCustomerId = platformUser.stripeCustomer?.id
-    //   if (!stripeCustomerId) {
-    //     const stripeCustomer =
-    //       await this.BaseService.StripeService.stripe.customers.create({
-    //         email: firebaseUser.email,
-    //         name: firebaseUser.displayName,
-    //         metadata: {
-    //           [platformUser.collection]: platformUser.id,
-    //         },
-    //       })
-    //     platformUser.stripeCustomer = {
-    //       id: stripeCustomer.id,
-    //     }
-    //     const updatedPlatformUser = await this.entityService.persist(
-    //       platformUser
-    //     )
+    // If both Firebase user and platform user are created successfully, return them
+    if (platformUser && firebaseUser) {
+      return { platformUser, firebaseUser };
+    }
 
-    //     if (updatedPlatformUser) {
-    //       platformUser = updatedPlatformUser
-    //     }
-    //   }
-
-    //   return { platformUser, firebaseUser }
-    // }
+    // Throw error if user is not resolved
     throw new Error('User not resolved');
   }
 
