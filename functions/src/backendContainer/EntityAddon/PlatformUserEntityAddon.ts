@@ -5,9 +5,10 @@ import { BaseEntityAddon, IBaseEntityAddonExtension } from './BaseEntityAddon';
 
 interface IGetPlatformUserPayload {
   email: string;
+  firstName: string;
+  lastName: string;
   displayName: string;
   password?: string;
-  inviteId?: string;
 }
 
 @injectable()
@@ -57,7 +58,11 @@ export class PlatformUserEntityAddon
         firebaseUser.uid,
         firebaseUser.displayName
       );
-      platformUserModel.details = { ...platformUser?.details, type };
+
+      platformUserModel.details = {
+        ...platformUser?.details,
+        type,
+      };
 
       platformUser = await this.entityService.persist(platformUserModel);
     } else {
