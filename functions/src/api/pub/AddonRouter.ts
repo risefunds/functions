@@ -6,8 +6,6 @@ export const AddonRouter = Router();
 AddonRouter.post(
   '/external/:addonName/:addonFeature',
   requestWithError(async (req) => {
-    // console.log(req.container.externalAddons);
-
     const externalAddons = req.container.externalAddons.find(
       (addon) => addon.addonName === req.params.addonName
     );

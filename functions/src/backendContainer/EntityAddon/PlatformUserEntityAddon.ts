@@ -43,9 +43,7 @@ export class PlatformUserEntityAddon
     try {
       // Check if the Firebase user exists
       firebaseUser = await admin.auth().getUserByEmail(data.email);
-    } catch (error) {
-      console.log('No Firebase User.');
-    }
+    } catch (error) {}
 
     let platformUser: models.PlatformUserEntityModel | undefined;
 

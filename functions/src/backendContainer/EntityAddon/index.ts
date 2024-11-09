@@ -2,7 +2,7 @@ import { Container } from 'inversify';
 import { BaseService, baseServiceContainer } from '../Base';
 import { EntityAddonService } from './EntityAddonService';
 import { PlatformUserEntityAddon } from './PlatformUserEntityAddon';
-// import { CreativeUserEntityAddon } from './CreativeUserEntityAddon';
+import { CreativeUserEntityAddon } from './CreativeUserEntityAddon';
 import { externalAddonContainer, ExternalAddonService } from '../ExternalAddon';
 
 const entityAddonContainer = new Container();
@@ -14,7 +14,7 @@ entityAddonContainer
 entityAddonContainer
   .bind('ExternalAddonService')
   .toConstantValue(
-    externalAddonContainer.resolve<ExternalAddonService>(ExternalAddonService),
+    externalAddonContainer.resolve<ExternalAddonService>(ExternalAddonService)
   );
 
 entityAddonContainer
@@ -27,9 +27,9 @@ entityAddonContainer
   .to(PlatformUserEntityAddon)
   .whenTargetNamed('PlatformUserEntityAddon');
 
-// entityAddonContainer
-//   .bind<CreativeUserEntityAddon>('entityAddon')
-//   .to(CreativeUserEntityAddon)
-//   .whenTargetNamed('CreativeUserEntityAddon');
+entityAddonContainer
+  .bind<CreativeUserEntityAddon>('entityAddon')
+  .to(CreativeUserEntityAddon)
+  .whenTargetNamed('CreativeUserEntityAddon');
 
 export { entityAddonContainer, EntityAddonService };
