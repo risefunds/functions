@@ -2,14 +2,11 @@ import { injectable } from 'inversify';
 import { IBaseAddon } from '../IBaseAddon';
 import Mailgun from 'mailgun.js';
 import formData from 'form-data';
-// import dotenv from 'dotenv';
-// dotenv.config();
 
-const API_KEY = '214a4344670624460ca490ebbf6b9a84-48c092ba-396f61c9';
-const DOMAIN = 'new3plus.afkae.com';
-const FROM = 'New3Plus Team <noreply@new3plus.afkae.com>';
-const BCC = 'new3plus.cc@yopmail.com';
-const REPLY_TO = 'team@new3plus.com';
+const API_KEY = '12ecd1923d9105be0935cc6322e4d6f5-79295dd0-37006d71';
+const DOMAIN = 'sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org';
+const FROM = 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>';
+// const REPLY_TO = 'team@risefunds.com';
 
 const mailgun = new Mailgun(formData);
 
@@ -30,11 +27,10 @@ export class MailgunExternalAddon implements IBaseAddon {
     return this.client.messages.create(DOMAIN, {
       from: params.from ?? FROM,
       to: params.to,
-      bcc: BCC,
       cc: params.cc,
       subject: params.subject,
       html: params.html,
-      'h:Reply-To': params.replyTo ?? REPLY_TO,
+      // 'h:Reply-To': params.replyTo ?? REPLY_TO,
     });
   }
 

@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 
 import { BaseEntityAddon, IBaseEntityAddonExtension } from './BaseEntityAddon';
 
-const CC = 'uyioghosa19@gmail.com.com';
+// const CC = 'uyioghosa19@gmail.com';
 
 interface ICreativePaylod {
   creativeId: string;
@@ -73,11 +73,11 @@ export class CreativeUserEntityAddon
           //   });
 
           await this.ExternalAddonService.MailgunExternalAddon.sendEmail({
-            from: 'Risefunds Team <noreply@risefunds.com>',
-            replyTo: `${creativeUser.email}`,
+            from: 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>',
+            // replyTo: `${creativeUser.email}`,
             to: 'Risefunds <benedictuyioghosa@gmail.com>',
             subject: `We have finished reviewing ${creativeUser.details.firstName} ${creativeUser.details.lastName} Portfolio & Profile.`,
-            cc: CC,
+            // cc: CC,
             html: `<!doctype html>
                 <html>
                   <head>
@@ -481,10 +481,11 @@ export class CreativeUserEntityAddon
       creativeUsers.map(async (creativeUser) => {
         if (creativeUser.email) {
           await this.ExternalAddonService.MailgunExternalAddon.sendEmail({
-            from: 'Risefunds Team <noreply@risefunds.com>',
-            to: `${creativeUser.email}`,
+            from: 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>',
+            // to: `${creativeUser.email}`,
+            to: 'Risefunds <uyioghosa19@gmail.com>',
             subject: `Verification Completed`,
-            cc: CC,
+            // cc: CC,
             html: `<!doctype html>
                 <html>
                   <head>
@@ -792,7 +793,7 @@ export class CreativeUserEntityAddon
                                           <table border="0" cellpadding="0" cellspacing="0">
                                             <tbody>
                                               <tr>
-                                                <td> <a href="http://localhost:3000/user/campaign/${creativeUser.id}" target="_blank">Create campaign</a> </td>
+                                                <td> <a href="http://localhost:3000/user/campaign" target="_blank">Create campaign</a> </td>
                                               </tr>
                                             </tbody>
                                           </table>
