@@ -73,7 +73,7 @@ export class CreativeUserEntityAddon
           //   });
 
           await this.ExternalAddonService.MailgunExternalAddon.sendEmail({
-            from: 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>',
+            from: 'Risefunds Team <mailgun@sandboxc7499b3594524717a7e18b6c3e257f07.mailgun.org>',
             // replyTo: `${creativeUser.email}`,
             to: 'Risefunds <benedictuyioghosa@gmail.com>',
             subject: `We have finished reviewing ${creativeUser.details.firstName} ${creativeUser.details.lastName} Portfolio & Profile.`,
@@ -369,7 +369,7 @@ export class CreativeUserEntityAddon
                                     <tr>
                                     <td>
                                       <p>
-                                        <img alt="logo" src="https://storage.googleapis.com/n3plus-public-resources/N3plus.jpg" />
+                                        <img alt="logo" src="https://firebasestorage.googleapis.com/v0/b/risefunds.appspot.com/o/static%2Flogo.PNG?alt=media&token=58351d17-3923-4ebf-98ce-0d1d0530cb6e" />
                                       </p>
                                     </td>
                                     </tr>
@@ -481,7 +481,7 @@ export class CreativeUserEntityAddon
       creativeUsers.map(async (creativeUser) => {
         if (creativeUser.email) {
           await this.ExternalAddonService.MailgunExternalAddon.sendEmail({
-            from: 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>',
+            from: 'Risefunds Team <mailgun@sandboxc7499b3594524717a7e18b6c3e257f07.mailgun.org>',
             // to: `${creativeUser.email}`,
             to: 'Risefunds <uyioghosa19@gmail.com>',
             subject: `Verification Completed`,
@@ -777,7 +777,7 @@ export class CreativeUserEntityAddon
                                     <tr>
                                     <td>
                                       <p>
-                                        <img alt="logo" src="https://storage.googleapis.com/n3plus-public-resources/N3plus.jpg" />
+                                        <img alt="logo" src="https://firebasestorage.googleapis.com/v0/b/risefunds.appspot.com/o/static%2Flogo.PNG?alt=media&token=58351d17-3923-4ebf-98ce-0d1d0530cb6e" />
                                       </p>
                                     </td>
                                     </tr>

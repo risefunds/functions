@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 import admin from 'firebase-admin';
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
 
 // Check if the environment is production or local
 if (process.env.NODE_ENV === 'production') {

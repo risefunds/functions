@@ -3,9 +3,10 @@ import { IBaseAddon } from '../IBaseAddon';
 import Mailgun from 'mailgun.js';
 import formData from 'form-data';
 
-const API_KEY = '12ecd1923d9105be0935cc6322e4d6f5-79295dd0-37006d71';
-const DOMAIN = 'sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org';
-const FROM = 'Risefunds Team <mailgun@sandboxb3e669a306b34a448b6ca8770b33824d.mailgun.org>';
+const API_KEY = process.env.MAILGUN_API || '';
+const DOMAIN = 'sandboxc7499b3594524717a7e18b6c3e257f07.mailgun.org';
+const FROM =
+  'Risefunds Team <mailgun@sandboxc7499b3594524717a7e18b6c3e257f07.mailgun.org>';
 // const REPLY_TO = 'team@risefunds.com';
 
 const mailgun = new Mailgun(formData);
@@ -14,7 +15,7 @@ const mailgun = new Mailgun(formData);
 export class MailgunExternalAddon implements IBaseAddon {
   addonName = 'Mailgun';
 
-  client = mailgun.client({ username: 'api', key: API_KEY });
+  client = mailgun.client({ username: 'api', key: API_KEY! });
 
   async sendEmail(params: {
     to: string;
