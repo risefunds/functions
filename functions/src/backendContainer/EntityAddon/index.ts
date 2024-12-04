@@ -3,6 +3,7 @@ import { BaseService, baseServiceContainer } from '../Base';
 import { EntityAddonService } from './EntityAddonService';
 import { PlatformUserEntityAddon } from './PlatformUserEntityAddon';
 import { CreativeUserEntityAddon } from './CreativeUserEntityAddon';
+import { DonationEntityAddon } from './DonationEntityAddon';
 import { externalAddonContainer, ExternalAddonService } from '../ExternalAddon';
 
 const entityAddonContainer = new Container();
@@ -31,5 +32,10 @@ entityAddonContainer
   .bind<CreativeUserEntityAddon>('entityAddon')
   .to(CreativeUserEntityAddon)
   .whenTargetNamed('CreativeUserEntityAddon');
+
+entityAddonContainer
+  .bind<DonationEntityAddon>('entityAddon')
+  .to(DonationEntityAddon)
+  .whenTargetNamed('DonationEntityAddon');
 
 export { entityAddonContainer, EntityAddonService };

@@ -31,6 +31,10 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+     match /Donation/{document=**} {
+      allow read, write: if true;
+    }
+
     match /ProjectCollection/{document=**} {
       allow read, write: if allowByPlatformUser();
     }

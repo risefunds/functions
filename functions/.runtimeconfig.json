@@ -3,6 +3,9 @@
     "cors": {
       "whitelist": "http://localhost:3000,http://localhost:3001,http://localhost:5000,http://localhost:9000"
     },
+    "frontend": {
+      "url": "http://localhost:3000"
+    },
     "api": {
       "url": "https://us-central1-risefunds.cloudfunctions.net/api"
     },

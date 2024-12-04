@@ -5,8 +5,6 @@ import { BaseEntityAddon, IBaseEntityAddonExtension } from './BaseEntityAddon';
 
 interface IGetPlatformUserPayload {
   email: string;
-  firstName: string;
-  lastName: string;
   displayName: string;
   password?: string;
 }
@@ -69,6 +67,27 @@ export class PlatformUserEntityAddon
 
     // If both Firebase user and platform user are created successfully, return them
     if (platformUser && firebaseUser) {
+      const stripeCustomerId = platformUser.stripeCustomer?.id;
+      if (!stripeCustomerId) {
+        const stripeCustomer =
+          await this.BaseService.StripeService.stripe.customers.create({
+            email: firebaseUser.email,
+            name: firebaseUser.displayName,
+            metadata: {
+              [platformUser.collection]: platformUser.id,
+            },
+          });
+        platformUser.stripeCustomer = {
+          id: stripeCustomer.id,
+        };
+        const updatedPlatformUser = await this.entityService.persist(
+          platformUser
+        );
+
+        if (updatedPlatformUser) {
+          platformUser = updatedPlatformUser;
+        }
+      }
       return { platformUser, firebaseUser };
     }
 
