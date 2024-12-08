@@ -109,8 +109,8 @@ export class PlatformUserEntityAddon
       console.log('Running in emulator, skipping Google token verification.');
       // Mock payload for emulator
       payload = {
-        email: 'test-user@example.com',
-        name: 'Test User',
+        email: 'madibude@example.com',
+        name: 'Madi Bude',
         email_verified: true,
         sub: '1234567890', // Unique user ID
       };

@@ -58,7 +58,7 @@ export class DonationEntityAddon
                 product_data: {
                   name: 'Match Making Service',
                 },
-                unit_amount: 100 * 250, // Amount is in cents
+                unit_amount: 100 * payload.amount, // Amount is in cents
               },
               quantity: 1,
             },
