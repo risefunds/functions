@@ -36,17 +36,25 @@ export class DonationEntityAddon
       const payload = data as { donation: string; jwt: string; amount: number };
       const donation = await this.entityService.get(payload.donation);
       if (!donation) throw new Error('Donation not found.');
-      const platformUser = await this.PlatformUserEntityAddon.entityService.get(
-        donation?.getSingleParentMandatoryReference(
-          models.PlatformUserEntityModel.collection
-        )
-      );
-      if (!platformUser) throw new Error('Platform user not found.');
-      const firebaseUser = await admin.auth().getUser(platformUser.id);
+      // const platformUser = await this.PlatformUserEntityAddon.entityService.get(
+      //   donation?.getSingleParentMandatoryReference(
+      //     models.PlatformUserEntityModel.collection
+      //   )
+      // );
+      // if (!platformUser) throw new Error('Platform user not found.');
+      // const firebaseUser = await admin.auth().getUser(platformUser.id);
 
-      const authenticationLink = `${env.frontend.url}/user/client/donate/${donation.id}?n3Code=autoSignin&jwt=${payload.jwt}&uid=${platformUser.id}`;
+      const authenticationLink = `${env.frontend.url}/user/client/donate/${donation.id}?n3Code=autoSignin&jwt=${payload.jwt}&amount=${payload.amount}`;
 
-      console.log({ amount: payload.amount });
+      const stripeCustomer =
+        await this.BaseService.StripeService.stripe.customers.create({
+          email: donation.details.email,
+          name: donation.details.displayName,
+          metadata: {
+            [donation.collection]: donation.id,
+          },
+        });
+      console.log({ stripeCustomer });
 
       const checkoutSession =
         await this.BaseService.StripeService.stripe.checkout.sessions.create({
@@ -56,7 +64,7 @@ export class DonationEntityAddon
               price_data: {
                 currency: 'CAD',
                 product_data: {
-                  name: 'Match Making Service',
+                  name: 'Risefunds',
                 },
                 unit_amount: 100 * payload.amount, // Amount is in cents
               },
@@ -69,10 +77,10 @@ export class DonationEntityAddon
           customer_update: {
             name: 'auto',
           },
-          customer: platformUser.stripeCustomer?.id,
+          customer: stripeCustomer.id,
           billing_address_collection: 'required',
           payment_intent_data: {
-            receipt_email: firebaseUser.email,
+            receipt_email: donation.details.email,
           },
           submit_type: 'pay',
           metadata: {
@@ -92,7 +100,7 @@ export class DonationEntityAddon
 
     if (feature === 'createDonation') {
       const payload = data as types.IDonationInitialValues;
-      const { email, displayName } = payload as types.IDonationInitialValues;
+      const { email } = payload as types.IDonationInitialValues;
 
       if (payload.campaignId) {
         const campaign = await this.SdkServices.core.CampaignEntityService.get(
@@ -102,36 +110,41 @@ export class DonationEntityAddon
         if (campaign) {
           campaign.updateAmount(payload.amount);
 
-          const { platformUser, firebaseUser } =
-            await this.PlatformUserEntityAddon.signupPlatformUser({
-              email,
-              displayName,
-            });
-          if (platformUser && firebaseUser) {
-            if (!(platformUser && platformUser.stripeCustomer)) {
-              throw new Error('Customer account cant be processed.');
-            }
+          // const { platformUser, firebaseUser } =
+          //   await this.PlatformUserEntityAddon.signupPlatformUser({
+          //     email,
+          //     displayName,
+          //   });
+          // if (platformUser && firebaseUser) {
+          // if (!(platformUser && platformUser.stripeCustomer)) {
+          //   throw new Error('Customer account cant be processed.');
+          // }
 
-            const donation = await this.entityService.persist(
-              new models.DonationEntityModel(
-                {
-                  [platformUser.collection]: platformUser.id,
-                  [campaign.collection]: campaign.id,
-                },
-                payload
-              )
-            );
-            if (donation) {
-              const customToken = await admin
-                .auth()
-                .createCustomToken(firebaseUser.uid);
-              return {
-                customToken,
-                donation: donation.id,
-                platformUserId: platformUser.id,
-              };
-            }
+          const donation = await this.entityService.persist(
+            new models.DonationEntityModel(
+              {
+                [campaign.collection]: campaign.id,
+              },
+              payload
+            )
+          );
+          if (donation) {
+            const uid = `donor-${email}-${campaign.id}`;
+            const customClaims = {
+              email,
+              campaignId: campaign.id,
+              amount: payload.amount,
+            };
+            const customToken = await admin
+              .auth()
+              .createCustomToken(uid, customClaims);
+
+            return {
+              customToken,
+              donation: donation.id,
+            };
           }
+          // }
         }
       }
     }
